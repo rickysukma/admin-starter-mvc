@@ -5,7 +5,7 @@ $(".nav-link").click(function (e) {
     var url = $(this).attr('href');
     render(url);
 })
-function render(targetPage) {
+function render(targetPage) {    
     var targetURL = "page/" + targetPage + ".html";
     if (targetPage != "") {
         $.ajax({
