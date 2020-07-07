@@ -1,12 +1,12 @@
 var api_url = "";
-var container = $("#main-container");
-$(".nav-link").click(function (e) {
-    e.preventDefault();
-    var url = $(this).attr('href');
-    render(url);
-})
+// var container = $("#main-container");
+// $(".nav-link").click(function (e) {
+//     e.preventDefault();
+//     var url = $(this).attr('href');
+//     render(url);
+// })
 function render(targetPage) {    
-    var targetURL = "page/" + targetPage + ".html";
+    var targetURL = "view/" + targetPage + ".php";
     if (targetPage != "") {
         $.ajax({
             url: targetURL,
