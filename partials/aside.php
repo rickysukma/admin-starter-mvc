@@ -16,15 +16,29 @@
 				<ul class="sidebar-menu" data-widget="tree">
                     <li class="header">MAIN NAVIGATION</li>
                     <?php
-                    $menues = App::IsCanAccess(1);
+					$menues = App::IsCanAccess($_SESSION['userdata']['id_user']);
                     foreach($menues as $menu){
-                        echo"
-                        <li>
-                            <a href=\"$menu[source]\" class=\"\">
-                                <i class=\"$menu[icon]\"></i>
-                                <span>$menu[nama_menu]</span>
-                            </a>
-                        </li>";
+						if($menu['has_child'] > 0){
+							$submenu = App::subMenu($menu['id_menu']);
+							echo"
+							<li class=treeview>
+								<a href=\"$menu[source]\" class=\"\">
+									<i class=\"$menu[icon]\"></i>
+									<span>$menu[nama_menu]</span>
+									<i class=\"fa fa-angle-left pull-right\"></i>
+								</a>
+								$submenu
+							</li>";	
+						}else{
+							echo"
+							<li>
+								<a href=\"$menu[source]\" class=\"\">
+									<i class=\"$menu[icon]\"></i>
+									<span>$menu[nama_menu]</span>
+								</a>
+
+							</li>";	
+						}
                     }
                     ?>
 				</ul>

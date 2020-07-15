@@ -37,7 +37,7 @@
     
     <?php
 
-    if($_SESSION['error']){
+    if(@$_SESSION['error']){
         ?>
         <div class="alert alert-danger alert-dismissible" role="alert">
             <strong>Wrong!</strong> <?= $_SESSION['error'] ?>

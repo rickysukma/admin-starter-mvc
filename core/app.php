@@ -12,9 +12,30 @@ class App
     }
 
     function IsCanAccess($iduser){
-        $iduser = 1;
+        // $iduser = 1;
         $cek = model_app::getAccesMenu($iduser);
         return $cek;
+    }
+
+    function subMenu($idmenu){
+        $submenu = model_app::treeView($idmenu,$_SESSION['userdata']['id_user']);
+        $generate = "<ul class=\"treeview-menu\">";			
+        foreach($submenu as $sub){
+            if($sub['has_child'] > 0){
+                $generate .= "
+                <li class=treeview><a href=\"$sub[source]\" class=\"\">
+                        <i class=\"$sub[icon]\"></i>
+                            <span>$sub[nama_menu]</span>
+                        <i class=\"fa fa-angle-left pull-right\"></i>
+                    </a>
+                    ".App::subMenu($sub['id_menu'])."
+                </li>";
+            }else{
+                $generate .= "<li><a href=\"$sub[source]\" class=\"\"><i class=\"$sub[icon]\"></i><span>$sub[nama_menu]</span></a></li>";
+            }
+        }
+        $generate .= "</ul>";
+        return $generate;
     }
 
     function login($data){

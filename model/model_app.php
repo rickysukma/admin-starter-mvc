@@ -13,9 +13,15 @@ class model_app
 
     function getAccesMenu($idrole){
         $array = DB::queryFirstColumn("SELECT id_menu FROM access_menu WHERE id_role = $idrole "); //get all id menu of user role with param @idrole
-        $query = DB::query("SELECT * FROM menu WHERE id_menu IN %li",$array);
+        $query = DB::query("SELECT a.*,(SELECT COUNT(*) FROM menu WHERE parent = a.id_menu) as has_child FROM menu a WHERE a.id_menu IN %li AND parent IS NULL",$array);
         return $query;
 
+    }
+
+    function treeView($idmenu,$idrole){
+        $array = DB::queryFirstColumn("SELECT id_menu FROM access_menu WHERE id_role = $idrole "); //get all id menu of user role with param @idrole
+        $submenu = DB::query("SELECT a.*,(SELECT COUNT(*) FROM menu WHERE parent = a.id_menu) as has_child FROM menu a WHERE id_menu IN %li AND a.parent = %i",$array,$idmenu);
+        return $submenu;
     }
 
     function getUserLogin($data){
