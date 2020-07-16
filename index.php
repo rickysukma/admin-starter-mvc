@@ -44,12 +44,30 @@ if(!App::isLogin()){
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.dataTables.min.js"></script>
     <script src="js/dataTables.bootstrap.min.js"></script>
+	<!-- Toast -->
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	
+	<script>
+		$(document).ready(function () {
+			$('.sidebar-menu').tree();
+			// $('.sidebar-menu').on("click", function(e){
+			// 	$(this).next('ul').toggle();
+			// 	e.stopPropagation();
+			// 	e.preventDefault();
+			// });
+			// render('dashboard');
+			$(".sidebar-menu").on('click',function(e){
+				$('.sidebar-menu').tree();
+			});
+		})
+	</script>
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini">
 	<!-- Site wrapper -->
 	<div class="wrapper">
-
+		<input type="hidden" id="base_url" value="<?php echo "https://" . $_SERVER['SERVER_NAME'] ."/admin-starter-mvc/request.php" ?>">
 		<?php require 'partials/header.php' ?>
 
 		<!-- =============================================== -->
@@ -60,6 +78,7 @@ if(!App::isLogin()){
 		<!-- =============================================== -->
 
 		<!-- Content Wrapper. Contains page content -->
+		
 		<div class="content-wrapper" id="main-container">
 			<!-- content here -->
 			<?php
@@ -81,8 +100,8 @@ if(!App::isLogin()){
 			<div class="pull-right hidden-xs">
 				<b>Version</b> 2.4.0
 			</div>
-			<strong>Copyright &copy; 2014-2016
-				<a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights reserved.
+			<strong>Copyright &copy; <?php echo date('Y') ?>
+				<a href="https://adminlte.io">AdminLTE</a>.</strong> All rights reserved. Made with 😠
 		</footer>
 	</div>
 	<!-- ./wrapper -->
@@ -93,12 +112,6 @@ if(!App::isLogin()){
 	<!-- AdminLTE App -->
 	<script src="js/adminlte.min.js"></script>
 	<script src="js/app.js"></script>
-	<script>
-		$(document).ready(function () {
-			$('.sidebar-menu').tree()
-			// render('dashboard');
-		})
-	</script>
 </body>
 
 </html>

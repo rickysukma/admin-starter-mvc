@@ -13,7 +13,7 @@
 					</div>
 				</div>
 				<!-- sidebar menu: : style can be found in sidebar.less -->
-				<ul class="sidebar-menu" data-widget="tree">
+				<ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
                     <?php
 					$menues = App::IsCanAccess($_SESSION['userdata']['id_user']);
@@ -22,7 +22,7 @@
 							$submenu = App::subMenu($menu['id_menu']);
 							echo"
 							<li class=treeview>
-								<a href=\"$menu[source]\" class=\"\">
+								<a href=\"#\" class=\"\">
 									<i class=\"$menu[icon]\"></i>
 									<span>$menu[nama_menu]</span>
 									<i class=\"fa fa-angle-left pull-right\"></i>

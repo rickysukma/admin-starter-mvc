@@ -23,7 +23,7 @@ class App
         foreach($submenu as $sub){
             if($sub['has_child'] > 0){
                 $generate .= "
-                <li class=treeview><a href=\"$sub[source]\" class=\"\">
+                <li class=treeview><a href=\"#\" class=\"\">
                         <i class=\"$sub[icon]\"></i>
                             <span>$sub[nama_menu]</span>
                         <i class=\"fa fa-angle-left pull-right\"></i>
