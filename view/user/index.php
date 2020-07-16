@@ -18,9 +18,21 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <!-- <h3 class="box-title">List Users Data</h3> -->
-                    <div class="text-left">
+                    <div class="text-left col-md-10">
                         <button class="btn btn-info btn-lg" onclick="newform()"><i class="fa fa-file"></i> New User</button>
                         <button class="btn btn-info btn-lg" onclick="loaddata()"><i class="fa fa-th-large"></i> List Data</button>
+                    </div>
+                    <div class="col-md-2">
+                        <form action="#" method="get" class="form" style="background-color:white">
+                        <!-- <label for="q">Cari Nama :</label> -->
+                            <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Cari Nama">
+                                <span class="input-group-btn">
+                                    <button type="button" onclick="cari()" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <!-- /.box-header -->

@@ -21,7 +21,12 @@ class User extends App {
     }
 
     function table(){
-        $users = model_app::getUser();
+        $keyword = NULL;
+        if(!empty($_POST)){
+            extract($_POST);
+        }
+        $users = model_app::getUserByName($keyword);
+        // print_r($users);die();
         require 'view/user/table.php';
     }
 

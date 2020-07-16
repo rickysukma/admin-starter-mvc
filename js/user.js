@@ -8,6 +8,12 @@ function loaddata() {
     send_request(url_user+'table','','#isihalaman');
 }
 
+function cari(){
+    keyword = $("input[name=q]").val();
+    param = 'keyword='+keyword;
+    send_request(url_user+'table',param,'#isihalaman');
+}
+
 function newform() {
     send_request(url_user+'form','','#isihalaman');
 }

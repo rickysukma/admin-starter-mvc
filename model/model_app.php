@@ -11,6 +11,15 @@ class model_app
         return $query;
     }
 
+    function getUserByName($keyword=null){
+        if($keyword != null){
+            $query = DB::query("SELECT user.id_user,user.display_name,user.createdtime,user.username,rolename,user.id_role FROM user JOIN role_users ON role_users.id_role = user.id_role WHERE user.username LIKE '%$keyword%'");
+        }else{
+            $query = DB::query("SELECT user.id_user,user.display_name,user.createdtime,user.username,rolename,user.id_role FROM user JOIN role_users ON role_users.id_role = user.id_role");
+        }
+        return $query;
+    }
+
     function getAccesMenu($idrole){
         $array = DB::queryFirstColumn("SELECT id_menu FROM access_menu WHERE id_role = $idrole "); //get all id menu of user role with param @idrole
         $query = DB::query("SELECT a.*,(SELECT COUNT(*) FROM menu WHERE parent = a.id_menu) as has_child FROM menu a WHERE a.id_menu IN %li AND parent IS NULL",$array);

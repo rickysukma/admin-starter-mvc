@@ -35,7 +35,7 @@
 }
 
 .skin-purple .main-header .navbar .sidebar-toggle:hover {
-    background-color: #555299;
+    background-color: #295598;
 }
 
 @media (max-width: 767px) {
@@ -48,12 +48,12 @@
     }
 
     .skin-purple .main-header .navbar .dropdown-menu li a:hover {
-        background: #555299;
+        background: #295598;
     }
 }
 
 .skin-purple .main-header .logo {
-    background-color: #555299;
+    background-color: #295598;
     color: #ffffff;
     border-bottom: 0 solid transparent;
 }
@@ -176,5 +176,5 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #555299;
+    background: #295598;
 }
