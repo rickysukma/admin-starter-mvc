@@ -32,6 +32,29 @@ function send_request(target,data = null,isikonten){
     $(".loading").hide();
 }
 
+function send_text(target,data = null,isikonten){
+    $(".loading").show();
+    if (target != "") {
+        $.ajax({
+            url: target,
+            type: "POST",
+            data: data,
+            success: function (result) {
+                if(isError(result)){
+                    notif(result,"error","Galat!");
+                }
+                $(isikonten).html(result);
+            },
+            error: function (xhr) {
+                notif(xhr.responseText,'error','Gagal')
+                // console.log("error here");
+
+            }
+        });
+    }
+    $(".loading").hide();
+}
+
 
 function post_ajax(target,data,callback) {
     if (target != "") {
@@ -57,6 +80,29 @@ function post_ajax(target,data,callback) {
     }
 }
 
+function post_text(target,data,callback) {
+    if (target != "") {
+        $.ajax({
+            url: target,
+            type: "POST",
+            data: data,
+            dataType: "html",
+            success: function (result) {
+                if(isError(result)){
+                    notif(result,"error","Galat!");
+                    return;
+                }
+                callback();
+            },
+            error: function (xhr) {
+                notif(xhr.responseText,'error','Gagal')
+                return false;
+                // console.log("error here");
+
+            }
+        });
+    }
+}
 
 /*
     @tipe = success,warning,error,info
@@ -64,7 +110,6 @@ function post_ajax(target,data,callback) {
     @title = Judul Pesan
 
 */
-
 
 function notif(pesan,tipe,title){
     toastr.options = {

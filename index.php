@@ -28,7 +28,8 @@ if(!App::isLogin()){
        folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="css/skin-purple.css">
     <link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
-
+	<!-- Zebra Pagination -->
+	<link rel="stylesheet" href="css/zpagination.css">
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -44,6 +45,7 @@ if(!App::isLogin()){
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.dataTables.min.js"></script>
     <script src="js/dataTables.bootstrap.min.js"></script>
+	<script src="js/zpagination.js"></script>
 	<!-- Toast -->
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -78,20 +80,20 @@ if(!App::isLogin()){
 		<!-- =============================================== -->
 
 		<!-- Content Wrapper. Contains page content -->
-		
+		<div id="progress"></div>
 		<div class="content-wrapper" id="main-container">
 			<!-- content here -->
 			<?php
-			if(isset($_GET['page'])){
-				if($_GET['page'] == '' || !file_exists("core/$_GET[page].php")){
-					App::notfound();
-					exit();
-				}
-				require 'core/'.$_GET['page'].'.php';
-				ucfirst($_GET['page'])::index();
-			}else{
-				App::index();
-			}
+			// if(isset($_GET['page'])){
+			// 	if($_GET['page'] == '' || !file_exists("core/$_GET[page].php")){
+			// 		App::notfound();
+			// 		exit();
+			// 	}
+			// 	require 'core/'.$_GET['page'].'.php';
+			// 	ucfirst($_GET['page'])::index();
+			// }else{
+			// 	App::index();
+			// }
 			?>
 		</div>
 		<!-- /.content-wrapper -->
@@ -111,7 +113,35 @@ if(!App::isLogin()){
 	<script src="js/fastclick.js"></script>
 	<!-- AdminLTE App -->
 	<script src="js/adminlte.min.js"></script>
+	<script src="js/generic.js"></script>
 	<script src="js/app.js"></script>
+	<script>
+	function do_load(page){
+		refresh(page);
+		$.ajax({
+			url:page+'.php',
+			data:{},
+			dataType:'html',
+			success:function(html){
+			$("#main-container").html(html);
+			}
+		});
+	}
+
+	function refresh(page){
+		localStorage.setItem("refresh", page);
+	}
+
+	//check for Navigation Timing API support
+	if (window.performance) {
+		console.info("window.performance works fine on this browser");
+	}
+	if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+		do_load(localStorage.getItem("refresh"));
+	} else {
+		console.info( "This page is not reloaded");
+	}
+	</script>
 </body>
 
 </html>

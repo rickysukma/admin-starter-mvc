@@ -1,4 +1,7 @@
 <?php
+// ini_set('log_errors','On');
+// ini_set('display_errors','Off');
+// ini_set('error_reporting', E_ALL );
 $dbserver='localhost';
 $dbport  ='3306';
 $dbname  ='ngoacc';
@@ -19,5 +22,14 @@ function my_error_handler($params) {
     die; // don't want to keep going if a query broke
   }
 
+  try {
+    $owlPDO = new PDO('mysql:host='.$dbserver.';dbname='.$dbname, $uname, $passwd, array(PDO::ATTR_PERSISTENT => true));
+    $owlPDO->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+  }
+  catch (PDOException $e) {
+         print " ERRORCODE, could not connect\n";	
+         print "ERRORCODE!: " . $e->getMessage() . "<br/>";
+     die();
+  }
 
 ?>

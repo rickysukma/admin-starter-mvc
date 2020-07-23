@@ -32,7 +32,7 @@
 						}else{
 							echo"
 							<li>
-								<a href=\"$menu[source]\" class=\"\">
+								<a onclick=do_load($menu[source]) href=\"javascript::\" class=\"\">
 									<i class=\"$menu[icon]\"></i>
 									<span>$menu[nama_menu]</span>
 								</a>

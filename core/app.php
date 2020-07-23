@@ -31,7 +31,7 @@ class App
                     ".App::subMenu($sub['id_menu'])."
                 </li>";
             }else{
-                $generate .= "<li><a href=\"$sub[source]\" class=\"\"><i class=\"$sub[icon]\"></i><span>$sub[nama_menu]</span></a></li>";
+                $generate .= "<li><a onclick=\"do_load('$sub[source]')\" href=\"javascript:\" class=\"\"><i class=\"$sub[icon]\"></i><span>$sub[nama_menu]</span></a></li>";
             }
         }
         $generate .= "</ul>";
