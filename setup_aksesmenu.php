@@ -1,12 +1,12 @@
 <section class="content-header">
     <h1>
-        Menu
-        <small>Manager</small>
+        Setup
+        <small>Akses Menu</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Administrator</a></li>
         <!-- <li><a href="#">Forms</a></li> -->
-        <li class="active">User</li>
+        <li class="active">Setup Akses Menu</li>
     </ol>
 </section>
 

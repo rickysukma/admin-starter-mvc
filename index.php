@@ -124,6 +124,8 @@ if(!App::isLogin()){
 			dataType:'html',
 			success:function(html){
 			$("#main-container").html(html);
+			},error:function(error,err){
+				notif(error.statusText,'error','Error!');
 			}
 		});
 	}

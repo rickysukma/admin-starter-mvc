@@ -9,10 +9,14 @@ $pagination = new Zebra_Pagination();
 // $pagination->reverse(true);
 // $page = checkPostGet('page','');
 $proses = checkPostGet('proses','');
+$type = checkPostGet('type','');
+$id = checkPostGet('id','');
+$keyword = checkPostGet('cari','');
+
 switch($proses){
     case 'loaddata':
 
-        $total = DB::queryFirstField("SELECT COUNT(*) FROM menu");
+        $total = DB::queryFirstField("SELECT COUNT(*) FROM menu WHERE nama_menu LIKE '%$keyword%'");
         $records_per_page = 10;
         $pagination->records($total);
         $pagination->navigation_position(isset($_GET['navigation_position']) && in_array($_GET['navigation_position'], array('left', 'right')) ? $_GET['navigation_position'] : 'outside');
@@ -42,7 +46,7 @@ switch($proses){
                 <tbody id="data-menu">
                     <?php
                     $no =1;
-                    $menu = DB::query("SELECT * FROM menu LIMIT ". (($pagination->get_page() - 1) * $records_per_page) . ", " . $records_per_page ."");
+                    $menu = DB::query("SELECT * FROM menu WHERE nama_menu LIKE '%$keyword%' LIMIT ". (($pagination->get_page() - 1) * $records_per_page) . ", " . $records_per_page ."");
                     foreach($menu as $s){
                     ?>
                     <tr>
@@ -51,8 +55,8 @@ switch($proses){
                         <td><i class="<?= $s['icon'] ?>"></i></td>
                         <td><?= $s['source'] ?></td>
                         <td>
-                            <button onclick="edit('<?= $s['id_user'] ?>')" title="Sunting" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></button>
-                            <button onclick="hapus('<?= $s['id_user'] ?>')" title="Hapus" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                            <button onclick="edit('<?= $s['id_menu'] ?>')" title="Sunting" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></button>
+                            <button onclick="hapus('<?= $s['id_menu'] ?>')" title="Hapus" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                     <?php } ?>
@@ -64,4 +68,21 @@ switch($proses){
         </div>
         <?php
     break;
+    case 'form':
+    if($type == 'new'){
+
+    }else{
+        $data = DB::queryFirstRow("SELECT * FROM menu WHERE id_menu = %i",$id);
+    }
+    require 'lib/icons.php';
+    require 'master_menu_form.php';
+    break;
+
+    case 'save':
+        DB::insert('menu',$_POST);
+    break;
+    case 'update':
+        DB::update('menu',$_POST,'id_menu=%i',$id);
+    break;
+
 }
