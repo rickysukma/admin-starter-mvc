@@ -115,35 +115,7 @@ if(!App::isLogin()){
 	<script src="js/adminlte.min.js"></script>
 	<script src="js/generic.js"></script>
 	<script src="js/app.js"></script>
-	<script>
-	function do_load(page){
-		refresh(page);
-		$.ajax({
-			url:page+'.php',
-			data:{},
-			dataType:'html',
-			success:function(html){
-			$("#main-container").html(html);
-			},error:function(error,err){
-				notif(error.statusText,'error','Error!');
-			}
-		});
-	}
-
-	function refresh(page){
-		localStorage.setItem("refresh", page);
-	}
-
-	//check for Navigation Timing API support
-	if (window.performance) {
-		console.info("window.performance works fine on this browser");
-	}
-	if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-		do_load(localStorage.getItem("refresh"));
-	} else {
-		console.info( "This page is not reloaded");
-	}
-	</script>
+	<script src="js/treed.js"></script>
 </body>
 
 </html>

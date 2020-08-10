@@ -136,9 +136,38 @@ function notif(pesan,tipe,title){
 //checking result including error or warning word
 function isError(text) {
     cek = text.substr(0,150);
+    cek = cek.toLowerCase();
     if(cek.includes("error") || cek.includes("warning") || cek.includes("error:")){
         return true;
     }else{
         return false;
     }
+}
+
+function do_load(page){
+    refresh(page);
+    $.ajax({
+        url:page+'.php',
+        data:{},
+        dataType:'html',
+        success:function(html){
+        $("#main-container").html(html);
+        },error:function(error,err){
+            notif(error.statusText,'error','Error!');
+        }
+    });
+}
+
+function refresh(page){
+    localStorage.setItem("refresh", page);
+}
+
+//check for Navigation Timing API support
+if (window.performance) {
+    console.info("window.performance works fine on this browser");
+}
+if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+    do_load(localStorage.getItem("refresh"));
+} else {
+    console.info( "This page is not reloaded");
 }
