@@ -92,7 +92,7 @@ function post_text(target,data,callback) {
                     notif(result,"error","Galat!");
                     return;
                 }
-                callback();
+                callback(result);
             },
             error: function (xhr) {
                 notif(xhr.responseText,'error','Gagal')
@@ -170,4 +170,16 @@ if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
     do_load(localStorage.getItem("refresh"));
 } else {
     console.info( "This page is not reloaded");
+}
+
+function getIdVal(elem,display){
+    val = $(elem).val();
+    if(val == '' || val == undefined){
+        notif("Kolom "+display+" tidak boleh kosong","info","Validation");
+        $(elem).focus();
+        console.log($(elem).val());
+        throw false;
+    }else{
+        return $(elem).val();
+    }
 }

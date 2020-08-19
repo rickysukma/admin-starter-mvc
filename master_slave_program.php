@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'config/connection.php';
 require 'lib/nangkoelib.php';
 // $pagination->reverse(true);
@@ -7,39 +8,43 @@ $proses = checkPostGet('proses','');
 $type = checkPostGet('type','');
 $id = checkPostGet('id','');
 $keyword = checkPostGet('cari','');
-
+$field = checkPostGet('field','');
+$value = checkPostGet('value','');
+$created = $updateby = $_SESSION['userdata']['id_user'];
 switch($proses){
     case 'loaddata':
-        $master = DB::query("SELECT *,(SELECT COUNT(*) as has_child FROM program WHERE induk = program.id_program ORDER BY id_program_display) FROM program");
-        print_r($master);
+        $master = DB::query("SELECT *,(SELECT COUNT(*) as has_child FROM program WHERE induk = program.id_program ORDER BY id_program_display) FROM program LEFT JOIN user ON user.id_user = program.updateby");
         foreach($master as $m){
             ?>
             <tr>
                 <td><?= $m['id_program'] ?></td>
-                <td><?= $m['ket_program'] ?></td>
+                <td style="cursor:pointer" ondblclick="input(this,'ket_program','<?= $m['id_program'] ?>')"><?= $m['ket_program'] ?></td>
                 <td><?= $m['tgl_perencanaan'] ?></td>
-                <td><?= $m['rp_budget'] ?></td>
-                <td><?= $m['updateby'] ?></td>
-                <td><i class="fa fa-plus"></i> </td>
+                <td ondblclick="input(this,'rp_budget','<?= $m['id_program'] ?>')"><?= $m['rp_budget'] ?></td>
+                <td><?= $m['display_name'] ?></td>
+                <td><i onclick="newsubheader('<?=$m['id_program']?>',this)" class="fa fa-plus btn-link"></i>   <i class="fa fa-trash btn-danger btn-link " onclick="delete('<?=$m['id_program']?>')"></i></td>
             </tr>
             <?php
         }
     break;
     case 'form':
-    if($type == 'new'){
 
-    }else{
-        $data = DB::queryFirstRow("SELECT * FROM role_users WHERE id_role = %i",$id);
-    }
-    require 'lib/icons.php';
-    require 'role_user_form.php';
     break;
-
     case 'save':
-        DB::insert('role_users',$_POST);
+        $data = $_POST;
+        if($data['induk'] == 'null') $data['induk'] = "";
+        $data['createtime'] = date('Y-m-d H:i:s');
+        $data['id_program_display'] = $data['id_program'];
+        $data['updatetime'] = date('Y-m-d H:i:s');
+        $data['createdby'] = $created;
+        $data['updateby'] = $updateby;
+        DB::insert('program',$data);
+        $master = DB::query("SELECT program.*,display_name,(SELECT COUNT(*) as has_child FROM program WHERE induk = program.id_program ORDER BY id_program_display) as has_child FROM program LEFT JOIN user ON user.id_user = program.updateby WHERE id_program = %s ORDER BY program.id_program_display",$data['id_program']);
+        echo json_encode($master);
     break;
     case 'update':
-        DB::update('role_users',$_POST,'id_role=%i',$id);
+        $data[$field] = $value;
+        DB::update('program',$data,'id_program=%i',$id);
     break;
 
 }

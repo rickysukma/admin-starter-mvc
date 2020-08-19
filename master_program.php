@@ -22,9 +22,9 @@
                 <div class="row content" id="isihalaman">
                     <!-- Isi Halaman -->
                     <div class="col-md-12">
-                        <table class="table table-bordered w-auto small program">
+                        <table class="table tree-2 table-bordered w-auto small program">
                             <thead>
-                                <tr>
+                                <tr class="treegrid-1">
                                     <th>ID</th>
                                     <th>Keterangan Program</th>
                                     <th>Tanggal Perencanaan</th>
@@ -36,7 +36,7 @@
                             <tbody id="data-table">
                                 
                             </tbody>
-                        </table>
+                        </table>	
                     </div>
                     <!--  -->
                     <div class="overlay loading" style="display:none">
@@ -50,5 +50,5 @@
         <!--/.col (left) -->
     </div>
     <!-- /.row -->
-</section>
+</section>   
 <script src="js/master_program.js"></script>

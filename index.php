@@ -46,6 +46,8 @@ if(!App::isLogin()){
     <script src="js/jquery.dataTables.min.js"></script>
     <script src="js/dataTables.bootstrap.min.js"></script>
 	<script src="js/zpagination.js"></script>
+	<script src="js/treegridbs.js"></script>
+	<script src="js/treegridbs.bs.js"></script>
 	<!-- Toast -->
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
