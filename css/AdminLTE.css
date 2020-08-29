@@ -44,6 +44,10 @@ body {
     clear: both;
 }
 
+/* .input {
+    border-radius:5px;
+} */
+
 .layout-boxed .wrapper {
     max-width: 1250px;
     margin: 0 auto;

@@ -31,15 +31,16 @@ function newsubheader(indux,$this){
     console.log(rowcount);
     var date = new Date();
     var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 ))
-                    .toISOString()
-                    .split("T")[0];
-    html = '<td><input autocomplete=off id="id_'+rowcount+'" type=text></td>';
+    .toISOString()
+    .split("T")[0];
+    html = '<td><input autocomplete=off id="id_'+rowcount+'" type=text value=""></td>';
     html += '<td><input autocomplete=off id="ket_'+rowcount+'" type=text></td>';
     html += '<td><input autocomplete=off id="tgl_'+rowcount+'" type=date value='+dateString+'></td>';
     html += '<td><input autocomplete=off id="budget_'+rowcount+'" type=text></td>';
     html += '<td></td>';
     html += '<td><i class="fa fa-save" onclick=simpanheader('+rowcount+','+indux+')></i>  <i class="fa fa-close btn-danger btn-link " onclick=cancel('+rowcount+')></i></td>';
     $(tr).after('<tr class="input_" id=idrowcount_'+rowcount+'>'+html+'</tr>');
+    getlastid(indux,rowcount);
 }
 
 function simpanheader(rowid,indux = null) {
@@ -60,7 +61,7 @@ function simpanheader(rowid,indux = null) {
         html += '<td>'+data[0].tgl_perencanaan+'</td>';
         html += '<td>'+data[0].rp_budget+'</td>';
         html += '<td>'+data[0].display_name+'</td>';
-        html += '<td><i class="fa fa-plus btn-link" onclick=newsubheader('+rowcount+',this)></i>  <i class="fa fa-close btn-danger btn-link " onclick=delete('+id+')></td>';
+        html += '<td><i class="fa fa-plus btn-link" onclick=newsubheader('+data[0].id_program+',this)></i>  <i class="fa fa-close btn-danger btn-link " onclick=delete('+id+')></td>';
         $("#idrowcount_"+rowcount).html(html);
         $("#idrowcount_"+rowcount).addClass("sub_"+indux);
         // loaddata();
@@ -149,5 +150,13 @@ function update(field,value,id){
     param += '&id='+id;
     post_text('master_slave_program.php',param,()=>{
         notif('Saved!','success','Notif');
+    });
+}
+
+function getlastid(indux,row) {
+    param = 'proses=getlastid';
+    param += '&induk='+indux;
+    post_text('master_slave_program.php',param,(id)=>{
+        $("#id_"+row).val(id);
     });
 }

@@ -148,7 +148,7 @@ function do_load(page){
     refresh(page);
     $.ajax({
         url:page+'.php',
-        data:{},
+        data:{'source':page},
         dataType:'html',
         success:function(html){
         $("#main-container").html(html);

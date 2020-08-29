@@ -1,7 +1,7 @@
 <?php
-session_start();
 require 'config/connection.php';
 require 'lib/nangkoelib.php';
+require 'config/master_validation.php';
 // $pagination->reverse(true);
 // $page = checkPostGet('page','');
 $proses = checkPostGet('proses','');
@@ -45,6 +45,11 @@ switch($proses){
     case 'update':
         $data[$field] = $value;
         DB::update('program',$data,'id_program=%i',$id);
+    break;
+    case 'getlastid':
+        $indux = checkPostGet('induk','');
+        $indux = DB::queryFirstField("SELECT IF(COUNT(*) > 0,max(id_program)+1,CONCAT($indux,'1')) as next FROM program WHERE induk = %i;",$indux);
+        echo $indux;
     break;
 
 }
